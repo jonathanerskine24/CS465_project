@@ -8,3 +8,8 @@ class Season():
 
     def add_game(self, game):
         self.games.append(game)
+
+    def sum(self):
+        # for i in range(0,)
+        # (self.total_data[]
+        pass
