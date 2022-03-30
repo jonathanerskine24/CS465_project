@@ -33,5 +33,14 @@ class PlayerHandler():
             if (self.players[x].num_seasons_total > 2):
                 self.players[x].print()
         
+    def printPlayersWithDuplicateSeasons(self):
+        playersWithDupes = 0
+        for player in self.players:
+            if self.players[player].hasDuplicates:
+               self.players[player].print_dup()
+               playersWithDupes += 1
+        print("Num players w dupes: {}".format(playersWithDupes))
+
+
     def __players__(self):
         return self.players

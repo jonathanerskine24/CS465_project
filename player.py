@@ -1,7 +1,16 @@
 from game_stats import Game_Stats
 from season import Season
+import enum
 
 COLLEGE_SEASONS = ["FR", "SO", "JR", "SR"]
+
+YEAR = {"FR":0, "SO":1, "JR":2, "SR":3}
+
+# class YEAR(enum.Enum):
+#     FR=0
+#     SO=1
+#     JR=2
+#     SR=3
 
 # Perhaps "Base_Player" for common positions
 class Player():
@@ -17,9 +26,15 @@ class Player():
         self.num_pro_seasons = 0            # some players have 3 seasons listed and a 3, some have a 4...
         self.num_seasons_total = 1
 
+        self.college_seasons_counts = [0,0,0,0]
+
         # Convention: 'FR', 'SO', 'JR', 'SR', 'ROOKIE', '2', '3' ... 
         self.seasons = {'FR':None, 'SO':None, 'JR':None, 'SR':None}
         self.seasons[year] = Season()
+        # print(self.get_readable())
+        self.college_seasons_counts[YEAR[year]] += 1
+
+        self.hasDuplicates = False
 
 
     # determine a convention for adding a game to a player
@@ -37,6 +52,9 @@ class Player():
         self.num_seasons_total += 1
         if (season in COLLEGE_SEASONS):
             self.num_college_seasons += 1
+            self.college_seasons_counts[YEAR[season]] += 1
+            if (self.college_seasons_counts[YEAR[season]] > 1):
+                self.hasDuplicates = True
         else:
             self.num_pro_seasons += 1
 
@@ -48,7 +66,13 @@ class Player():
         return ret[:-2]
 
     def print(self):
-        print(self.get_readable() + " Seasons Found: {} {}".format(self.seasons_found(), self.num_seasons_total))
+        print(self.get_name() + ": Seasons: {} {}".format(self.seasons_found(), self.num_seasons_total))
+
+    def print_dup(self):
+        print(self.get_name() + " FR:{}/SO:{}/JR:{}/SR:{}".format(self.college_seasons_counts[0],self.college_seasons_counts[1],self.college_seasons_counts[2],self.college_seasons_counts[3]))
+
+    def get_name(self):
+        return "{} {}".format(self.first_name, self.last_name)
 
     def get_readable(self):
         return "{} {} {} {} {}".format(self.first_name, self.last_name, self.position, self.pid, self.school) 
