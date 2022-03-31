@@ -20,3 +20,5 @@ class Stat(enum.Enum):
     PT_RET = 16
     PT_RET_YARD = 17
     PT_RET_TD = 18
+
+

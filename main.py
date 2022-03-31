@@ -8,6 +8,8 @@ from DataInfo import DataInfo as di
 
 # kinda half assed these names, make better ones
 
+import cfbd
+
 from tests import *
 
 from DataCleaningUtils import *
@@ -32,63 +34,29 @@ fm = FileManager()
 #            adding to a Player_Manager()
 #     - if player already exists, simply add a new season to the existing Player()
 
-
-case_studies = [[],[]]
-cs1 = "Anthony Pesanello"
-cs2 = "Eli Tenuta"
-
-unique_players = 0
-
-
-
-
-
-# for year in di.COLLEGE_DATA_RANGE:
-    # for file_type in fm.
-    # print(fm.college_stat_files[year]['player.csv'])
-    # print("Beginning {}...".format(year[-4:]))
-    # with open(fm., "r") as f:
-    #     reader = csv.reader(f)
-    #     for p in reader:
-    #         # print(p)
-    #         if is_valid(p):
-    #             # print("Valid\n")
-    #             pid = p[0]
-    #             # print(phandler.contains(pid))
-    #             if (not phandler.contains(pid)):
-    #                 unique_players+=1
-    #                 if (name_is(cs1, p)):
-    #                     p.append(year[-4:])
-    #                     case_studies[0].append(p)
-    #                 elif (name_is(cs2, p)):
-    #                     p.append(year[-4:])
-    #                     case_studies[1].append(p)
-    #                 phandler.addPlayer(Player(p[3], p[2], p[6], p[0], p[1], p[5]))
-    #             else:
-    #                 if (name_is(cs1, p)):
-    #                     p.append(year[-4:])
-    #                     case_studies[0].append(p)
-    #                 elif (name_is(cs2, p)):
-    #                     case_studies[1].append(p)
-    #                     p.append(year[-4:]) 
-    #                 season = p[5]
-    #                 phandler.addSeasonToPlayer(pid, p[5])
-    #         else:
-    #             print("Invalid, skipping {}\n".format(p))
-
-# phandler.printPlayers()
-
 df = DataFactory()
 
-# phandler.printPlayersWithDuplicateSeasons()
 
-print("Unique players: {}".format(df.pHandler.unique_players))
-# for i in case_studies:
-#     for x in i:
-#         print(x)
+plays2017 = df.cfdb['plays'].get_play_stats(year=2017, week=2, team="Alabama")
+print(plays2017[0])
+plays2018 = df.cfdb['plays'].get_play_stats(year=2018, week=2, team='Alabama')
+print("\n")
+print(plays2018[0])
+print("{} {}".format(len(plays2017), len(plays2018)))
 
-# file_path1 = os.path.join('data', 'college', '2005_2013', '2009', 'player.csv')
-# file_path2 = os.path.join('data', 'college', '2005_2013', '2009', 'player-game-statistics.csv')
+# for team in teams:
+    # print(team)
+    # print(df.cfdb['teams'].get_roster(team=team.school, year=56))
+
+# print(teams[103].school)
+
+
+# print("Unique college players: {}".format(df.pHandler.unique_college_players))
+# print("Unique NFL players: {}".format(df.pHandler.unique_nfl_players))
+
+
+
+
 
 # with open(file_path1, "r") as f:
 #     reader = csv.reader(f)

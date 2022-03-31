@@ -17,7 +17,7 @@ class PackMan(object):
 
     @staticmethod
     def pack_nfl_player(p):
-        pass
+        return Player(p[1], p[2], p[4], p[0], p[8], "NFL")
         # return Player(p?)
     
     @classmethod

@@ -3,7 +3,6 @@ from season import Season
 import enum
 
 COLLEGE_SEASONS = ["FR", "SO", "JR", "SR"]
-
 YEAR = {"FR":0, "SO":1, "JR":2, "SR":3}
 
 # class YEAR(enum.Enum):
@@ -22,17 +21,19 @@ class Player():
         self.pid = pid
         self.school = school
 
-        self.num_college_seasons = 1        # Something fucky going on with how this is getting incremented... 
+        self.num_college_seasons = 0       # Something fucky going on with how this is getting incremented... 
         self.num_pro_seasons = 0            # some players have 3 seasons listed and a 3, some have a 4...
-        self.num_seasons_total = 1
+        self.num_seasons_total = 0
 
         self.college_seasons_counts = [0,0,0,0]
 
         # Convention: 'FR', 'SO', 'JR', 'SR', 'ROOKIE', '2', '3' ... 
         self.seasons = {'FR':None, 'SO':None, 'JR':None, 'SR':None}
-        self.seasons[year] = Season()
-        # print(self.get_readable())
-        self.college_seasons_counts[YEAR[year]] += 1
+
+        if year in COLLEGE_SEASONS:
+            self.init_college(year)
+        else:
+            self.init_nfl()
 
         self.hasDuplicates = False
         self.duplicateFreshman = False
@@ -42,6 +43,15 @@ class Player():
     # considerations:
     #       - what format is the data coming in? what do I have, what do I need/want?
     #       - might want to create a separate "Game" class... look for more data sets
+
+    def init_college(self, year):
+            self.seasons[year] = Season()
+            self.college_seasons_counts[YEAR[year]] += 1
+            self.num_college_seasons += 1
+            self.num_seasons_total += 1
+
+    def init_nfl(self):
+        pass
 
     def addGame(self, season, gamedata):
         if self.seasons[season] is None:
@@ -72,7 +82,7 @@ class Player():
         return (self.first_name + " " + self.last_name)
 
     def print(self):
-        print(self.get_name() + ": Seasons: {} {}".format(self.seasons_found(), self.num_seasons_total))
+        print(self.get_name() + " {} {} ".format(self.position, self.pid))
 
     def print_dup(self):
         print(self.get_name() + " FR:{}/SO:{}/JR:{}/SR:{}".format(self.college_seasons_counts[0],self.college_seasons_counts[1],self.college_seasons_counts[2],self.college_seasons_counts[3]))

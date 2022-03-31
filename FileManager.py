@@ -10,6 +10,7 @@ class FileManager():
 
         self.base_college_path = osp.join('data', 'college', '2005_2013')
         self.base_nfl_path = osp.join('data', 'nfl')
+        self.base_alt_nfl_path = osp.join('data', 'nfl_alt')
 
         self.college_stat_files = ["player.csv", "player-game-statistics.csv"]
 
@@ -17,7 +18,13 @@ class FileManager():
         self.college_stat_files_dict = self.__college_stat_files_dict__()
 
         self.nfl_player_data_file = osp.join(self.base_nfl_path, 'players.csv')
- 
+        self.nfl_game_data_file = osp.join(self.base_nfl_path, 'games.csv')
+        self.nfl_plays_data_file = osp.join(self.base_nfl_path, "plays.csv")
+        self.nfl_rusher_data_file = osp.join(self.base_nfl_path, "rusher.csv")
+
+        self.alt_nfl_games_file = osp.join(self.base_alt_nfl_path, "games.json")
+        self.alt_nfl_profiles_file = osp.join(self.base_alt_nfl_path, "profiles.json")
+
 
     def __college_season_files__(self):
         return  { year: osp.join(self.base_college_path,year) 

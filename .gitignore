@@ -129,4 +129,6 @@ dmypy.json
 .pyre/
 
 data/archive.zip
+data/archive(1).zip
 data/nfl
+data/nfl_alt
