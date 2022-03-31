@@ -3,11 +3,16 @@ from player_handler import PlayerHandler
 from player import Player
 from Stat_enums import Stat 
 from FileManager import FileManager
+from DataInfo import DataInfo as di
 # would you pick a fuckin naming convention?
 
 # kinda half assed these names, make better ones
-from data_manip import *
+
 from tests import *
+
+from DataCleaningUtils import *
+
+from Datafactory import DataFactory
 
 import os.path as osp
 
@@ -32,56 +37,52 @@ case_studies = [[],[]]
 cs1 = "Anthony Pesanello"
 cs2 = "Eli Tenuta"
 
-INVALID_ENTRIES = ["Player_Code", "Player Code"]
+unique_players = 0
 
 
-def all_data_present(p):
-    for i in p[0:6]:
-        if (i == ""):
-            return False
-    return True
-    
-def is_valid(p):
-    return (p[0] not in INVALID_ENTRIES) and (p[2] != "Team") and (all_data_present(p))
 
-def name_is(name, p):
-    return (name.split(' ') == [p[3], p[2]])
 
-for year in fm.college_season_files:
-    print("Beginning {}...".format(year[-4:]))
-    with open(osp.join(year, 'player.csv'), "r") as f:
-        reader = csv.reader(f)
-        for p in reader:
-            # print(p)
-            if is_valid(p):
-                # print("Valid\n")
-                pid = p[0]
-                # print(phandler.contains(pid))
-                if (not phandler.contains(pid)):
-                    if (name_is(cs1, p)):
-                        p.append(year[-4:])
-                        case_studies[0].append(p)
-                    elif (name_is(cs2, p)):
-                        p.append(year[-4:])
-                        case_studies[1].append(p)
-                    phandler.addPlayer(Player(p[3], p[2], p[6], p[0], p[1], p[5]))
-                else:
-                    if (name_is(cs1, p)):
-                        p.append(year[-4:])
-                        case_studies[0].append(p)
-                    elif (name_is(cs2, p)):
-                        case_studies[1].append(p)
-                        p.append(year[-4:]) 
-                    season = p[5]
-                    phandler.addSeasonToPlayer(pid, p[5])
-            else:
-                print("Invalid, skipping {}\n".format(p))
+
+# for year in di.COLLEGE_DATA_RANGE:
+    # for file_type in fm.
+    # print(fm.college_stat_files[year]['player.csv'])
+    # print("Beginning {}...".format(year[-4:]))
+    # with open(fm., "r") as f:
+    #     reader = csv.reader(f)
+    #     for p in reader:
+    #         # print(p)
+    #         if is_valid(p):
+    #             # print("Valid\n")
+    #             pid = p[0]
+    #             # print(phandler.contains(pid))
+    #             if (not phandler.contains(pid)):
+    #                 unique_players+=1
+    #                 if (name_is(cs1, p)):
+    #                     p.append(year[-4:])
+    #                     case_studies[0].append(p)
+    #                 elif (name_is(cs2, p)):
+    #                     p.append(year[-4:])
+    #                     case_studies[1].append(p)
+    #                 phandler.addPlayer(Player(p[3], p[2], p[6], p[0], p[1], p[5]))
+    #             else:
+    #                 if (name_is(cs1, p)):
+    #                     p.append(year[-4:])
+    #                     case_studies[0].append(p)
+    #                 elif (name_is(cs2, p)):
+    #                     case_studies[1].append(p)
+    #                     p.append(year[-4:]) 
+    #                 season = p[5]
+    #                 phandler.addSeasonToPlayer(pid, p[5])
+    #         else:
+    #             print("Invalid, skipping {}\n".format(p))
 
 # phandler.printPlayers()
 
+df = DataFactory()
 
-phandler.printPlayersWithDuplicateSeasons()
+# phandler.printPlayersWithDuplicateSeasons()
 
+print("Unique players: {}".format(df.pHandler.unique_players))
 # for i in case_studies:
 #     for x in i:
 #         print(x)

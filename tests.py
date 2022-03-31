@@ -1,4 +1,4 @@
-from data_manip import *
+from DataCleaningUtils import *
 
 def test_pack(game_data):
     if (pack(game_data) != pack_tester(game_data)):

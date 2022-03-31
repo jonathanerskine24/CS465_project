@@ -35,6 +35,7 @@ class Player():
         self.college_seasons_counts[YEAR[year]] += 1
 
         self.hasDuplicates = False
+        self.duplicateFreshman = False
 
 
     # determine a convention for adding a game to a player
@@ -54,6 +55,8 @@ class Player():
             self.num_college_seasons += 1
             self.college_seasons_counts[YEAR[season]] += 1
             if (self.college_seasons_counts[YEAR[season]] > 1):
+                if (season == "FR"):
+                    self.duplicateFreshman = True
                 self.hasDuplicates = True
         else:
             self.num_pro_seasons += 1
@@ -64,6 +67,9 @@ class Player():
             if (not self.seasons[key] is None):
                 ret += (key +", ")
         return ret[:-2]
+
+    def __full_name__(self):
+        return (self.first_name + " " + self.last_name)
 
     def print(self):
         print(self.get_name() + ": Seasons: {} {}".format(self.seasons_found(), self.num_seasons_total))
