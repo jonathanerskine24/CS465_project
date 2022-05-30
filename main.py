@@ -4,35 +4,15 @@ from player import Player
 from Stat_enums import Stat 
 from FileManager import FileManager
 from DataInfo import DataInfo as di
-# would you pick a fuckin naming convention?
-
-# kinda half assed these names, make better ones
 
 import cfbd
-
 from tests import *
-
 from DataCleaningUtils import *
-
 from Datafactory import DataFactory
-
 import os.path as osp
 
 phandler = PlayerHandler()
 fm = FileManager()
-
-'''
-    Want to add players from every year, dealing with collisions to construct player profiles
-
-'''
-
-# first go through the player files to initialize players
-#   consider:
-#     - duplicates: how to handle? data authentication
-#     - what is really happening when we "create" a player for each season? adding new seasons
-#     - need to go season by season through player files initializing Player()s and 
-#            adding to a Player_Manager()
-#     - if player already exists, simply add a new season to the existing Player()
 
 df = DataFactory()
 
